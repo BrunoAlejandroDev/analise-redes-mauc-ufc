@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 #* ====== CARREGAR PLANILHA PARA DF E FORMATAR COLUNAS
 
 #* Teste de carregamento da planilha
-caminho_planilha = 'C:\\ciencia-de-dados\\projetos\\analise-redes-sociais-mauc\\dados-mauc.csv'
+caminho_planilha = 'C:\\ciencia-de-dados\\projetos\\analise-redes-mauc-ufc\\dados-mauc.csv'
 df_dados = pd.read_csv(caminho_planilha)
 
 #* Transformar os valores da coluna data 
@@ -31,9 +31,16 @@ media_posts_feed = df_dados['Qtd_Postagens_Dia'].mean()
 
 #* Total de posts do tipo carrossel feitos no periodo
 total_posts_carrossel = df_dados['Qtd_Post_Carrosel'].sum()
+print(total_posts_carrossel)
 
 #* Media de posts do tipo carrossel feitos no periodo
 total_posts_carrossel = df_dados['Qtd_Post_Carrosel'].mean()
+
+#* Total de posts do tipo foto feitos no periodo
+total_posts_foto = df_dados['Qtd_Post_Foto'].sum()
+
+#* Media de posts do tipo foto feitos no periodo
+media_posts_foto = df_dados['Qtd_Post_Foto'].mean()
 
 #* Soma total de stories publicados no periodo observado
 total_stories_publicados = df_dados['Qtd_Post_Stories'].sum()
@@ -43,6 +50,7 @@ media_stories_publicados = df_dados['Qtd_Post_Stories'].mean()
 
 #* Soma total de reels publicados no periodo observado
 total_reels_publicados = df_dados['Qtd_Post_Reels'].sum()
+print(total_reels_publicados)
 
 #* Media total de reels publicados no periodo observado
 media_reels_publicados = df_dados['Qtd_Post_Reels'].mean()
@@ -73,11 +81,13 @@ interacao_marca_dias = df_dados['Interacao_Marca'].sum()
 conteudo_proprio = df_dados['Conteudo_Proprio'].sum()
 conteudo_participativo = df_dados['Conteudo_Participativo'].sum()
 dias_ativos = len(df_dados)
-print(f'\nDias com interacao ativa: {interacao_marca_dias} de {dias_ativos}')
-print(f'\nDias com criacao de conteudo proprio: {conteudo_proprio} de {dias_ativos}')
-print(f'\nDias com conteudo participativo: {conteudo_participativo} de {dias_ativos}')
+# print(f'\nDias com interacao ativa: {interacao_marca_dias} de {dias_ativos}')
+# print(f'\nDias com criacao de conteudo proprio: {conteudo_proprio} de {dias_ativos}')
+# print(f'\nDias com conteudo participativo: {conteudo_participativo} de {dias_ativos}')
 
 #* ====== CRIACAO DOS GRAFICOS E VISUALIZACOES ======
+
+#* ===== GRAFICO DE PIZZA PARA VOZ DA MARCA =====
 
 #* Configuracao do estilo dos graficos
 sns.set_style('whitegrid') 
@@ -97,4 +107,27 @@ plt.pie(
 )
 
 plt.title('\nVoz da Marca: Distribuição do Tipo de Conteúdo Publicado no Feed')
+# plt.show()
+
+#* ===== GRAFICO DE BARRAS PARA VISUALIZACAO DE FREQUENCIA DE MIDIA =====
+
+formatos_total = pd.Series({
+    'Foto (Feed)' : total_posts_foto,
+    'Reels (Feed)' : df_dados['Qtd_Post_Reels'].sum(),
+    'Carrossel (Feed)' : df_dados['Qtd_Post_Carrosel'].sum(),
+    'Stories' : df_dados['Qtd_Post_Stories'].sum()
+})
+
+plt.figure(figsize=(10,6))
+
+formatos_total.plot(
+    kind='bar',
+    color=['skyblue', 'salmon', 'lightgreen', 'gold']
+)
+
+plt.title('Frequencia de Publicação por Formato de Mídia (8 Dias)')
+plt.ylabel('Quantidade Total de Posts')
+plt.xlabel('Formato de Mídia')
+plt.xticks(rotation=0)
 plt.show()
+
