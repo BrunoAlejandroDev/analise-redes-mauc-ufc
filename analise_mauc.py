@@ -31,7 +31,6 @@ media_posts_feed = df_dados['Qtd_Postagens_Dia'].mean()
 
 #* Total de posts do tipo carrossel feitos no periodo
 total_posts_carrossel = df_dados['Qtd_Post_Carrosel'].sum()
-print(total_posts_carrossel)
 
 #* Media de posts do tipo carrossel feitos no periodo
 total_posts_carrossel = df_dados['Qtd_Post_Carrosel'].mean()
@@ -50,7 +49,6 @@ media_stories_publicados = df_dados['Qtd_Post_Stories'].mean()
 
 #* Soma total de reels publicados no periodo observado
 total_reels_publicados = df_dados['Qtd_Post_Reels'].sum()
-print(total_reels_publicados)
 
 #* Media total de reels publicados no periodo observado
 media_reels_publicados = df_dados['Qtd_Post_Reels'].mean()
@@ -107,7 +105,7 @@ plt.pie(
 )
 
 plt.title('\nVoz da Marca: Distribuição do Tipo de Conteúdo Publicado no Feed')
-# plt.show()
+plt.show()
 
 #* ===== GRAFICO DE BARRAS PARA VISUALIZACAO DE FREQUENCIA DE MIDIA =====
 
@@ -131,3 +129,20 @@ plt.xlabel('Formato de Mídia')
 plt.xticks(rotation=0)
 plt.show()
 
+#* ===== GRAFICO DE LINHA PARA VISUALIZACAO DA QUANTIDADE DE SEGUIDORES =====
+
+#* Definir o tamanho do grafico
+plt.figure(figsize=(10,6))
+
+#* Plotar a figura 'Qtd_Seguidores' 
+df_dados['Qtd_Seguidores'].plot(
+    kind='line',
+    marker='o', #? adiciona um circulo para cada ponto de dado
+    color='darkviolet' #? cor escolhida para a linha no grafico
+)
+
+plt.title('Evolução Diária do Número de Seguidores (MAUC)')
+plt.ylabel('Quantidade de Seguidores')
+plt.xlabel('Data da Observação')
+plt.grid(True) #? adiciona linhas de grade
+plt.show()
